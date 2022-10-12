@@ -1,26 +1,34 @@
 import java.io.*;
+import java.util.ArrayList;
 
 
 public class desserialize {
-    public static void desserializer(){
-        Object e = null;
+    public static ArrayList desserializer(){
+        Object e;
+        boolean x = true ;
         FileInputStream fis;
         ObjectInputStream ois;
+        ArrayList<utilisateur> users = new ArrayList<>();
         try {
-            fis = new FileInputStream("D:\\programing\\TP01M1STIC\\src\\users.txt");
+            fis = new FileInputStream("D:\\programing\\TP01M1STIC\\src\\users.txt" );
             ois = new ObjectInputStream(fis);
-           while(((e = ois.readObject()) instanceof  endoffile) == false){
-
-               System.out.println(((utilisateur)e).nom +" ,"+ ((utilisateur)e).prenom +" ,"+ ((utilisateur)e).user +" ,"+ ((utilisateur)e).mdp +" ,"+ ((utilisateur)e).num);
+           while(x){
+               e = ois.readObject();
+               if(e instanceof utilisateur){
+                   users.add((utilisateur)e);
+               }else{
+                   x= false;
+               }
 
 
            }
             ois.close();
             fis.close();
-        } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+        } catch (IOException | ClassNotFoundException z) {
+            System.out.println("error found");
+
 
         }
-
+        return users;
     }
 }
